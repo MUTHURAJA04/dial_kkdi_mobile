@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import Input from '../components/CustomInput';
 
 const BusinessStep3 = () => {
   const navigation = useNavigation();
@@ -43,6 +44,8 @@ const BusinessStep3 = () => {
     setPhotos(newPhotos);
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <View className="flex-1 bg-white">
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -54,22 +57,37 @@ const BusinessStep3 = () => {
           Step 3 of 3
         </Text>
 
-        <TextInput
+        {/* <TextInput
           placeholder="Password"
           secureTextEntry
           placeholderTextColor="#999"
           className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
           value={password}
           onChangeText={setPassword}
+        /> */}
+        <Input
+          placeholder="Password"
+          secureTextEntry
+          placeholderTextColor="#999"
+          value={password}
+          onChangeText={setPassword}
         />
 
-        <TextInput
+        {/* <TextInput
           placeholder="Confirm Password"
           secureTextEntry
           placeholderTextColor="#999"
           className="border border-gray-300 rounded-lg px-4 py-3 mb-6 text-gray-800 bg-gray-50"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
+        /> */}
+
+        <Input
+          placeholder="Password"
+          placeholderTextColor="#aaa"
+          isPassword
+          showPassword={showPassword}
+          togglePasswordVisibility={() => setShowPassword(prev => !prev)}
         />
 
         <Text className="text-gray-700 font-medium mb-2">
@@ -101,9 +119,8 @@ const BusinessStep3 = () => {
         {/* Add Photo Button */}
         <TouchableOpacity
           onPress={handleAddPhoto}
-          className={`py-3 rounded-lg mb-6 ${
-            photos.length >= 6 ? 'bg-orange-300' : 'bg-orange-500'
-          }`}
+          className={`py-3 rounded-lg mb-6 ${photos.length >= 6 ? 'bg-orange-300' : 'bg-orange-500'
+            }`}
         >
           <Text className="text-white text-center font-semibold">
             Add Photo
@@ -111,26 +128,25 @@ const BusinessStep3 = () => {
         </TouchableOpacity>
 
         {/* Terms & Conditions with Modal */}
-      <TouchableOpacity
-  onPress={() => setAgreed(!agreed)}
-  className="flex-row items-center mb-4"
->
-  <View
-    className={`w-5 h-5 rounded border-2 mr-3 justify-center items-center ${
-      agreed ? 'bg-orange-500 border-orange-500' : 'border-gray-400'
-    }`}
-  >
-    {agreed && (
-      <Text className="text-white text-xs">✓</Text>
-    )}
-  </View>
-  <Pressable onPress={() => setShowTerms(true)}>
-    <Text className="text-gray-700">
-      I agree to the{' '}
-      <Text className="underline text-sky-500">Terms and Conditions</Text>
-    </Text>
-  </Pressable>
-</TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setAgreed(!agreed)}
+          className="flex-row items-center mb-4"
+        >
+          <View
+            className={`w-5 h-5 rounded border-2 mr-3 justify-center items-center ${agreed ? 'bg-orange-500 border-orange-500' : 'border-gray-400'
+              }`}
+          >
+            {agreed && (
+              <Text className="text-white text-xs">✓</Text>
+            )}
+          </View>
+          <Pressable onPress={() => setShowTerms(true)}>
+            <Text className="text-gray-700">
+              I agree to the{' '}
+              <Text className="underline text-sky-500">Terms and Conditions</Text>
+            </Text>
+          </Pressable>
+        </TouchableOpacity>
 
 
         {/* Modal for Terms */}
@@ -339,11 +355,10 @@ const BusinessStep3 = () => {
 
           <TouchableOpacity
             disabled={!password || !confirmPassword || !agreed}
-            className={`px-6 py-3 rounded-lg ${
-              !password || !confirmPassword || !agreed
-                ? 'bg-orange-300'
-                : 'bg-orange-500'
-            }`}
+            className={`px-6 py-3 rounded-lg ${!password || !confirmPassword || !agreed
+              ? 'bg-orange-300'
+              : 'bg-orange-500'
+              }`}
           >
             <Text className="text-white font-semibold">Register</Text>
           </TouchableOpacity>

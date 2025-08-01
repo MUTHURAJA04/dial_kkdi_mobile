@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView, Modal, FlatList } from 'react-native';
-import Products from './Products';
-import Services from './Services';
+import { ChevronRight, X, Grid, List, ShoppingBag, Tool } from 'react-native-feather';
 
 const Banner = ({ navigation }) => {
   // Products data
@@ -36,66 +35,72 @@ const Banner = ({ navigation }) => {
     { id: 12, name: 'See All', image: 'https://cdn-icons-png.flaticon.com/512/2989/2989988.png' }
   ];
 
-  // State for modal
-   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState([]);
   const [modalTitle, setModalTitle] = useState('');
+  const [viewMode, setViewMode] = useState('grid');
 
   const handleSeeAll = (items, title) => {
-    const filteredItems = items.filter(item => item.name !== 'See All');
-    setModalContent(filteredItems);
+    setModalContent(items.filter(item => item.name !== 'See All'));
     setModalTitle(title);
     setModalVisible(true);
   };
 
-  const renderItem = ({ item }) => (
+  const renderGridItem = ({ item }) => (
     <TouchableOpacity 
-      className="w-[30%] mb-6 items-center active:opacity-70"
+      className="w-[30%] mb-6 items-center"
+      activeOpacity={0.7}
       onPress={() => {
         setModalVisible(false);
         navigation.navigate('Category', { categoryId: item.id });
       }}
     >
-      <View className="w-20 h-20 bg-white rounded-xl items-center justify-center shadow-md shadow-gray-300">
-        <Image 
-          source={{ uri: item.image }} 
-          className="w-16 h-16 rounded-lg" 
-          resizeMode="contain"
-        />
+      <View className="w-20 h-20 bg-white rounded-xl items-center justify-center shadow-sm shadow-gray-300">
+        <Image source={{ uri: item.image }} className="w-16 h-16 rounded-lg" resizeMode="contain" />
       </View>
-      <Text className="text-xs text-center text-gray-600 font-medium mt-2 px-1" numberOfLines={2}>
+      <Text className="text-xs text-center text-gray-700 font-medium mt-2 px-1" numberOfLines={2}>
         {item.name}
       </Text>
+    </TouchableOpacity>
+  );
+
+  const renderListItem = ({ item }) => (
+    <TouchableOpacity 
+      className="flex-row items-center py-3 px-4 bg-white mb-2 rounded-lg shadow-sm shadow-gray-200"
+      activeOpacity={0.7}
+      onPress={() => {
+        setModalVisible(false);
+        navigation.navigate('Category', { categoryId: item.id });
+      }}
+    >
+      <View className="w-12 h-12 bg-gray-50 rounded-lg items-center justify-center mr-3">
+        <Image source={{ uri: item.image }} className="w-10 h-10" resizeMode="contain" />
+      </View>
+      <Text className="text-sm text-gray-800 font-medium flex-1">{item.name}</Text>
+      <ChevronRight width={18} height={18} color="#9ca3af" />
     </TouchableOpacity>
   );
 
   const renderCategoryItem = ({ item, items, title }) => (
     <TouchableOpacity 
       key={item.id} 
-      className="w-[30%] mb-6 items-center active:opacity-70"
+      className="w-[30%] mb-6 items-center"
+      activeOpacity={0.7}
       onPress={() => 
         item.name === 'See All' 
           ? handleSeeAll(items, title) 
           : navigation.navigate('Category', { categoryId: item.id })
       }
     >
-      <View className={`w-20 h-20 rounded-xl items-center justify-center shadow-md ${
-        item.name === 'See All' ? 'bg-blue-50' : 'bg-white'
-      }`}>
-        <Image 
-          source={{ uri: item.image }} 
-          className={`w-16 h-16 ${item.name === 'See All' ? 'opacity-80' : ''}`} 
-          resizeMode="contain"
-        />
+      <View className={`w-20 h-20 rounded-xl items-center justify-center shadow-sm ${item.name === 'See All' ? 'bg-blue-50' : 'bg-white'}`}>
+        <Image source={{ uri: item.image }} className={`w-16 h-16 ${item.name === 'See All' ? 'opacity-80' : ''}`} resizeMode="contain" />
         {item.name === 'See All' && (
           <View className="absolute bottom-1 right-1 bg-blue-100 rounded-full p-1">
-            <Text className="text-blue-500">→</Text>
+            <ChevronRight width={14} height={14} color="#3b82f6" />
           </View>
         )}
       </View>
-      <Text className={`text-xs text-center font-medium mt-2 px-1 ${
-        item.name === 'See All' ? 'text-blue-500' : 'text-gray-600'
-      }`} numberOfLines={2}>
+      <Text className={`text-xs text-center font-medium mt-2 px-1 ${item.name === 'See All' ? 'text-blue-500' : 'text-gray-700'}`} numberOfLines={2}>
         {item.name}
       </Text>
     </TouchableOpacity>
@@ -105,50 +110,84 @@ const Banner = ({ navigation }) => {
     <View className="flex-1 bg-gray-50">
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
         {/* Header */}
-        <View className="bg-white py-4 px-6 shadow-sm shadow-gray-200">
-          <Text className="text-2xl font-bold text-gray-800">Categories</Text>
+        <View className="bg-white py-5 px-6 border-b border-gray-100 flex-row justify-between items-center">
+          <Text className="text-2xl font-bold text-gray-900">Categories</Text>
+          <View className="flex-row">
+            <TouchableOpacity 
+              className={`p-2 rounded-l-lg ${viewMode === 'grid' ? 'bg-blue-100' : 'bg-gray-100'}`}
+              onPress={() => setViewMode('grid')}
+            >
+              <Grid width={20} height={20} color={viewMode === 'grid' ? "#3b82f6" : "#6b7280"} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              className={`p-2 rounded-r-lg ${viewMode === 'list' ? 'bg-blue-100' : 'bg-gray-100'}`}
+              onPress={() => setViewMode('list')}
+            >
+              <List width={20} height={20} color={viewMode === 'list' ? "#3b82f6" : "#6b7280"} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Products Section */}
-        <View className="bg-white mx-4 my-4 rounded-xl shadow-sm shadow-gray-200 overflow-hidden">
-          <View className="bg-blue-600 py-3 px-6">
-            <Text className="text-lg font-bold text-white">Products</Text>
+        <View className="mt-4 mx-4">
+          <View className="flex-row items-center justify-between mb-3">
+            <View className="flex-row items-center">
+              <ShoppingBag width={20} height={20} color="#3b82f6" />
+              <Text className="text-lg font-bold text-gray-900 ml-2">Products</Text>
+            </View>
+            <TouchableOpacity className="flex-row items-center" onPress={() => handleSeeAll(products, 'All Products')}>
+              <Text className="text-blue-500 text-sm mr-1">See all</Text>
+              <ChevronRight width={16} height={16} color="#3b82f6" />
+            </TouchableOpacity>
           </View>
           
-          <View className="p-4">
-            <View className="flex flex-row flex-wrap justify-between">
-              {products.map((product) => (
-                renderCategoryItem({
-                  item: product,
-                  items: products,
-                  title: 'All Products'
-                })
-              ))}
+          {viewMode === 'grid' ? (
+            <View className="bg-white p-4 rounded-xl shadow-sm shadow-gray-200 flex-row flex-wrap justify-between">
+              {products.slice(0, 6).map((product) => renderCategoryItem({ item: product, items: products, title: 'All Products' }))}
             </View>
-          </View>
+          ) : (
+            <View className="bg-white p-2 rounded-xl shadow-sm shadow-gray-200">
+              <FlatList
+                data={products.slice(0, 6)}
+                renderItem={renderListItem}
+                keyExtractor={(item) => item.id.toString()}
+                scrollEnabled={false}
+              />
+            </View>
+          )}
         </View>
 
         {/* Services Section */}
-        <View className="bg-white mx-4 my-2 mb-8 rounded-xl shadow-sm shadow-gray-200 overflow-hidden">
-          <View className="bg-indigo-600 py-3 px-6">
-            <Text className="text-lg font-bold text-white">Services</Text>
+        <View className="mt-4 mx-4 mb-8">
+          <View className="flex-row items-center justify-between mb-3">
+            <View className="flex-row items-center">
+              <Tool width={20} height={20} color="#6366f1" />
+              <Text className="text-lg font-bold text-gray-900 ml-2">Services</Text>
+            </View>
+            <TouchableOpacity className="flex-row items-center" onPress={() => handleSeeAll(services, 'All Services')}>
+              <Text className="text-indigo-500 text-sm mr-1">See all</Text>
+              <ChevronRight width={16} height={16} color="#6366f1" />
+            </TouchableOpacity>
           </View>
           
-          <View className="p-4">
-            <View className="flex flex-row flex-wrap justify-between">
-              {services.map((service) => (
-                renderCategoryItem({
-                  item: service,
-                  items: services,
-                  title: 'All Services'
-                })
-              ))}
+          {viewMode === 'grid' ? (
+            <View className="bg-white p-4 rounded-xl shadow-sm shadow-gray-200 flex-row flex-wrap justify-between">
+              {services.slice(0, 6).map((service) => renderCategoryItem({ item: service, items: services, title: 'All Services' }))}
             </View>
-          </View>
+          ) : (
+            <View className="bg-white p-2 rounded-xl shadow-sm shadow-gray-200">
+              <FlatList
+                data={services.slice(0, 6)}
+                renderItem={renderListItem}
+                keyExtractor={(item) => item.id.toString()}
+                scrollEnabled={false}
+              />
+            </View>
+          )}
         </View>
       </ScrollView>
 
-      {/* Modal for See All */}
+      {/* Modal */}
       <Modal
         animationType="slide"
         transparent={false}
@@ -158,25 +197,44 @@ const Banner = ({ navigation }) => {
         <View className="flex-1 bg-white">
           {/* Modal Header */}
           <View className="flex-row justify-between items-center py-4 px-6 border-b border-gray-100">
-            <Text className="text-xl font-bold text-gray-800">{modalTitle}</Text>
-            <TouchableOpacity 
-              onPress={() => setModalVisible(false)}
-              className="p-2 rounded-full bg-gray-100 active:bg-gray-200"
-            >
-              <Text className="text-gray-600">X</Text>
+            <Text className="text-xl font-bold text-gray-900">{modalTitle}</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)} className="p-2 rounded-full bg-gray-100">
+              <X width={20} height={20} color="#4b5563" />
             </TouchableOpacity>
           </View>
           
+          {/* View Mode Toggle */}
+          {/* <View className="flex-row justify-end px-6 pt-3">
+            <View className="flex-row bg-gray-100 rounded-lg p-1">
+              <TouchableOpacity className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-white shadow-sm' : ''}`} onPress={() => setViewMode('grid')}>
+                <Grid width={18} height={18} color={viewMode === 'grid' ? "#3b82f6" : "#6b7280"} />
+              </TouchableOpacity>
+              <TouchableOpacity className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-white shadow-sm' : ''}`} onPress={() => setViewMode('list')}>
+                <List width={18} height={18} color={viewMode === 'list' ? "#3b82f6" : "#6b7280"} />
+              </TouchableOpacity>
+            </View>
+          </View> */}
+          
           {/* Content */}
-          <FlatList
-            data={modalContent}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={3}
-            contentContainerStyle={{ padding: 16 }}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
-            showsVerticalScrollIndicator={false}
-          />
+          {viewMode === 'grid' ? (
+            <FlatList
+              data={modalContent}
+              renderItem={renderGridItem}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={3}
+              contentContainerStyle={{ padding: 16 }}
+              columnWrapperStyle={{ justifyContent: 'space-between' }}
+              showsVerticalScrollIndicator={false}
+            />
+          ) : (
+            <FlatList
+              data={modalContent}
+              renderItem={renderListItem}
+              keyExtractor={(item) => item.id.toString()}
+              contentContainerStyle={{ padding: 12 }}
+              showsVerticalScrollIndicator={false}
+            />
+          )}
         </View>
       </Modal>
     </View>

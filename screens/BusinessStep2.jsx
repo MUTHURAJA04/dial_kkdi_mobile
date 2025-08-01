@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
+import Input from '../components/CustomInput';
 
 const BusinessStep2 = () => {
   const navigation = useNavigation();
@@ -32,11 +33,11 @@ const BusinessStep2 = () => {
 
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="px-6 pt-16 pb-6">
         {/* Title */}
-         <Text className="text-2xl font-bold mb-4 text-orange-600 text-center">Business Registration</Text>
+        <Text className="text-2xl font-bold mb-4 text-orange-600 text-center">Business Registration</Text>
         <Text className="text-sm text-gray-500 mb-6 text-center">Step 2 of 3</Text>
 
         {/* Address */}
-        <TextInput
+        {/* <TextInput
           placeholder="Address"
           placeholderTextColor="#aaa"
           value={address}
@@ -45,10 +46,20 @@ const BusinessStep2 = () => {
           numberOfLines={4}
           textAlignVertical="top"
           className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800 bg-gray-50"
+        /> */}
+
+        <Input
+          placeholder="Address"
+          placeholderTextColor="#aaa"
+          value={address}
+          onChangeText={setAddress}
+          multiline
+          numberOfLines={4}
+          textAlignVertical="top"
         />
 
         {/* City Picker */}
-       
+
         <View className="overflow-hidden border border-gray-300 rounded-lg mb-4 bg-gray-50">
           <Picker
             selectedValue={city}
@@ -93,13 +104,21 @@ const BusinessStep2 = () => {
         </View>
 
         {/* Pincode */}
-        <TextInput
+        {/* <TextInput
           placeholder="Pincode"
           placeholderTextColor="#aaa"
           keyboardType="number-pad"
           value={pincode}
           onChangeText={setPincode}
           className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-6 text-base text-gray-800 bg-gray-50"
+        /> */}
+
+        <Input
+          placeholder="Pincode"
+          placeholderTextColor="#aaa"
+          keyboardType="number-pad"
+          value={pincode}
+          onChangeText={setPincode}
         />
 
         {/* Buttons */}

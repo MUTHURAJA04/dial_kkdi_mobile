@@ -10,15 +10,13 @@ import VideoSlide from './Home/VideoSlide';
 import Seasonal from './Home/Seasonal';
 import LimitedOffers from './Home/LimitedOffers';
 import Recognized from './Home/Recognized';
-
-
-
-
+import HeroSlide from './Home/HeroSlide';
 
 
 const Home = ({ navigation }) => {
   return (
     <ScrollView>
+    <HeroSlide />
       <Banner />
       <Products />
       <Services />

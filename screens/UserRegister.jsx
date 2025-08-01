@@ -9,6 +9,7 @@ import {
   Pressable,
   StatusBar,
 } from 'react-native';
+import Input from '../components/CustomInput';
 
 const UserRegister = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
@@ -24,39 +25,68 @@ const UserRegister = ({ navigation }) => {
         REGISTER
       </Text>
 
-      <TextInput
+      <Input
+        placeholder="Enter your full name"
+        placeholderTextColor="#999"
+      />
+
+      {/* <TextInput
         placeholder="Enter your full name"
         placeholderTextColor="#999"
         className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
+      /> */}
+
+      <Input
+        placeholder="Email Address"
+        placeholderTextColor="#aaa"
+        keyboardType="email-address"
       />
 
-      <TextInput
+      {/* <TextInput
         placeholder="Enter your email"
         keyboardType="email-address"
         placeholderTextColor="#999"
         className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
+      /> */}
+
+      <Input
+        placeholder="Enter your phone number"
+        keyboardType="phone-pad"
+        placeholderTextColor="#999"
       />
 
-      <TextInput
+      {/* <TextInput
         placeholder="Enter your phone number"
         keyboardType="phone-pad"
         placeholderTextColor="#999"
         className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
+      /> */}
+
+      <Input
+        placeholder="Enter password"
+        secureTextEntry
+        placeholderTextColor="#999"
       />
 
-      <TextInput
+      {/* <TextInput
         placeholder="Enter password"
         secureTextEntry
         placeholderTextColor="#999"
         className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
+      /> */}
+
+      <Input
+        placeholder="Re-enter password"
+        secureTextEntry
+        placeholderTextColor="#999"
       />
 
-      <TextInput
+      {/* <TextInput
         placeholder="Re-enter password"
         secureTextEntry
         placeholderTextColor="#999"
         className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-800 bg-gray-50"
-      />
+      /> */}
 
       {/* Agree to terms */}
       <TouchableOpacity
@@ -64,9 +94,8 @@ const UserRegister = ({ navigation }) => {
         className="flex-row items-center mb-4"
       >
         <View
-          className={`w-5 h-5 rounded border-2 mr-3 justify-center items-center ${
-            agreed ? 'bg-orange-500 border-orange-500' : 'border-gray-400'
-          }`}
+          className={`w-5 h-5 rounded border-2 mr-3 justify-center items-center ${agreed ? 'bg-orange-500 border-orange-500' : 'border-gray-400'
+            }`}
         >
           {agreed && <Text className="text-white text-xs">✓</Text>}
         </View>
