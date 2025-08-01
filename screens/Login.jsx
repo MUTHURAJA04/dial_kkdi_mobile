@@ -38,7 +38,15 @@ const Login = ({ type, onClose }) => {
 
         {/* Login Button */}
         <TouchableOpacity className="bg-orange-500 px-6 py-3 rounded-lg w-full mb-4">
-          <Text className="text-white text-center text-base font-semibold">
+          <Text className="text-white text-center text-base font-semibold"
+           onPress={() => {
+              if (type === 'business') {
+                navigation.navigate('BusinessRegister');
+              } else {
+                navigation.navigate('Home');
+              }
+            }}
+          >
             Login
           </Text>
         </TouchableOpacity>
