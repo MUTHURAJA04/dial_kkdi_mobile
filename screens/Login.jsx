@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,14 @@ import {
 } from 'react-native';
 import { X } from 'react-native-feather';
 import { useNavigation } from '@react-navigation/native';
+import Input from '../components/CustomInput';
 
 const Login = ({ type, onClose }) => {
   const navigation = useNavigation();
   const title = type === 'business' ? 'Business Login' : 'User Login';
+
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View className="flex-1 bg-white">
@@ -22,19 +26,33 @@ const Login = ({ type, onClose }) => {
         <Text className="text-2xl font-bold text-gray-800 mb-6">{title}</Text>
 
         {/* Email Input */}
-        <TextInput
+        {/* <TextInput
           placeholder="Email Address"
           placeholderTextColor="#aaa"
           className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+        /> */}
+
+        <Input
+          placeholder="Email Address"
+          placeholderTextColor="#aaa"
+        />
+
+        <Input
+          placeholder="Password"
+          placeholderTextColor="#aaa"
+          isPassword
+          showPassword={showPassword}
+          togglePasswordVisibility={() => setShowPassword(prev => !prev)}
         />
 
         {/* Password Input */}
-        <TextInput
+        {/* <TextInput
           placeholder="Password"
           placeholderTextColor="#aaa"
           secureTextEntry
           className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-6 text-base text-gray-800"
-        />
+        /> */}
+
 
         {/* Login Button */}
         <TouchableOpacity className="bg-orange-500 px-6 py-3 rounded-lg w-full mb-4">

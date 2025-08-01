@@ -11,6 +11,7 @@ import {
 import { categories } from './categories';
 import { X } from 'react-native-feather';
 import { useNavigation } from '@react-navigation/native';
+import Input from '../components/CustomInput';
 
 const BusinessRegister = () => {
   const navigation = useNavigation();
@@ -38,27 +39,49 @@ const BusinessRegister = () => {
 
       {/* Business Info Inputs */}
 
-      <TextInput
+      {/* <TextInput
         className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+        placeholder="Enter business name"
+        placeholderTextColor="#aaa"
+      /> */}
+
+      <Input
         placeholder="Enter business name"
         placeholderTextColor="#aaa"
       />
 
-      <TextInput
+      {/* <TextInput
         className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+        placeholder="Enter owner name"
+        placeholderTextColor="#aaa"
+      /> */}
+
+      <Input
         placeholder="Enter owner name"
         placeholderTextColor="#aaa"
       />
 
-      <TextInput
+      {/* <TextInput
         className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+        placeholder="Enter phone number"
+        keyboardType="phone-pad"
+        placeholderTextColor="#aaa"
+      /> */}
+
+      <Input
         placeholder="Enter phone number"
         keyboardType="phone-pad"
         placeholderTextColor="#aaa"
       />
 
-      <TextInput
+      {/* <TextInput
         className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+        placeholder="Enter email"
+        keyboardType="email-address"
+        placeholderTextColor="#aaa"
+      /> */}
+
+      <Input
         placeholder="Enter email"
         keyboardType="email-address"
         placeholderTextColor="#aaa"
@@ -108,8 +131,15 @@ const BusinessRegister = () => {
             Select Categories ({selected.length}/4)
           </Text>
 
-          <TextInput
+          {/* <TextInput
             className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base text-gray-800"
+            placeholderTextColor="#aaa"
+            placeholder="Search categories..."
+            value={search}
+            onChangeText={setSearch}
+          /> */}
+
+          <Input
             placeholderTextColor="#aaa"
             placeholder="Search categories..."
             value={search}
@@ -131,11 +161,10 @@ const BusinessRegister = () => {
                   {filteredSubs.map(sub => (
                     <TouchableOpacity
                       key={sub}
-                      className={`border rounded-md px-3 py-2 mb-2 ${
-                        selected.includes(sub)
-                          ? 'bg-orange-100 border-orange-400'
-                          : 'border-gray-300'
-                      }`}
+                      className={`border rounded-md px-3 py-2 mb-2 ${selected.includes(sub)
+                        ? 'bg-orange-100 border-orange-400'
+                        : 'border-gray-300'
+                        }`}
                       onPress={() => toggleSubcategory(sub)}
                     >
                       <Text className="text-gray-800">{sub}</Text>
