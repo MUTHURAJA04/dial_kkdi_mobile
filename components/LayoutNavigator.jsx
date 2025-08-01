@@ -38,7 +38,7 @@ const LayoutNavigator = () => {
 
       {/* ✅ Layout applied here */}
       <Stack.Screen name="Home" component={withLayout(Home)} />
-      <Stack.Screen name="Profile" component={withLayout(Profile)} />
+      <Stack.Screen name="Profile" component={withLayout(Profile)} />   
     </Stack.Navigator>
   );
 };

@@ -1,11 +1,11 @@
 // Landing.jsx
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StatusBar, Image, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, Image, Modal, Button } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import { Briefcase, User } from 'react-native-feather';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect} from '@react-navigation/native';
 import Login from './Login'; 
 
 const Landing = () => {
@@ -21,7 +21,10 @@ const Landing = () => {
     }, [])
   );
 
+
   return (
+
+
     <LinearGradient
       colors={['#ff4b1f', '#ff9068']}
       className="flex-1 justify-center items-center px-4"
@@ -85,6 +88,8 @@ const Landing = () => {
           </TouchableOpacity>
         </Animatable.View>
       </View>
+
+
 
       {/* Login Modal */}
       <Modal visible={!!loginType} animationType="slide" transparent>
