@@ -1,12 +1,36 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ScrollView } from 'react-native';
+import Banner from './Home/Banner';
+import Products from './Home/Products';
+import Services from './Home/Services';
+import ServicesOn from './Home/ServicesOn';
+import ProductOffers from './Home/ProductOffers';
+import Categories from './Home/Categories';
+import VideoSlide from './Home/VideoSlide';
+import Seasonal from './Home/Seasonal';
+import LimitedOffers from './Home/LimitedOffers';
+import Recognized from './Home/Recognized';
+
+
+
+
+
 
 const Home = ({ navigation }) => {
   return (
-    <View className='bg-green-500 flex-1 justify-center items-center'>
-      <Text>Home Screen</Text>
+    <ScrollView>
+      <Banner />
+      <Products />
+      <Services />
+      <ServicesOn />
+      <ProductOffers />
+      <Categories />
+      <VideoSlide />
+      <Seasonal />
+      <LimitedOffers />
+      <Recognized />
       <Button title="Go to Profile" onPress={() => navigation.navigate('Profile')} />
-    </View>
+    </ScrollView>
   );
 };
 
