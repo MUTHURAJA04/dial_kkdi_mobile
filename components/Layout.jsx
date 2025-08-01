@@ -1,16 +1,17 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { View } from 'react-native';
+import Header from './Header';
+import Bottom from './Bottom';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showHeader = true, showBottom = true }) => {
+  console.log('Layout rendered');
   return (
     <View style={{ flex: 1 }}>
-      <Text className='bg-blue-500'>Header</Text>
-      <View className='flex-1 bg-red-500'>
-        {children}
-      </View>
-      <Text className='bg-yellow-500'>Footer</Text>
+      {showHeader && <Header />}
+      <View className="flex-1">{children}</View>
+      {showBottom && <Bottom />}
     </View>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
